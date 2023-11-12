@@ -43,16 +43,45 @@ const cardGenerator = () => {
     back.classList = "back";
     // Add src of face img to src in the array
 face.src = item.imgSrc;
+card.setAttribute('name', item.name)
     // Let's put the cards in the section
     section.appendChild(card);
     card.appendChild(face);
     card.appendChild(back);
-
+//Add onclick event on card to rotate 180 degrees
     card.addEventListener('click', (e)=> {
         card.classList.add('toggleCard');
-    })
-
+        checkCards(e);
+    });
 
   });
 };
+const checkCards = (e) => {
+    const clickedCard = e.target;
+    // console.log();
+    clickedCard.classList.add('flipped');
+//Now, lets grab the clicked and give them a class of flipped
+//then compare flipped[0] and [1]
+const flippedCards = document.querySelectorAll('.flipped');
+
+
+if (flippedCards.length ===2){
+    if(
+        flippedCards[0].getAttribute("name") === 
+        flippedCards[1].getAttribute("name")
+        )
+    {
+        console.log("match");
+    } else {
+        flippedCards.forEach(card => {
+            card.classList.remove('flipped');
+            setTimeout(()=> card.classList.remove('toggleCard'), 1000);
+        })
+    }
+}
+
+
+};
+
+
 cardGenerator();
